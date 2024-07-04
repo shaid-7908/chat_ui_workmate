@@ -17,28 +17,39 @@ function Aichatreply({ chatdata }) {
   const [dataComponentValue, setDataComponentValue] = useState("data");
   const [columns1, setColumns1] = useState(null);
   const [validColumnPairs, setValidColumnPairs] = useState(null);
+  const cacheKey = `sql_query_${sql_query}`;
   const counter = 0
+ 
   useEffect(() => {
-    const fetchdata = async () => {
-      try {
-        const result = await axios.post(
-          "http://127.0.0.1:8000/sql_chain/gbq_v1/sqlresult",
-          {
-            sql_query: sql_query,
-          }
-        );
-        console.log(result.data);
-        console.log(counter+1)
-        setResults(result.data.results);
-        setColumns(Object.keys(result.data.results[0]));
-        setColumns1(result.data.columns);
-        setValidColumnPairs(result.data.valid_column_pairs);
-      } catch (e) {
-        console.log(e);
+    const fetchData = async () => {
+      const cachedData = localStorage.getItem(cacheKey);
+
+      if (cachedData) {
+        const parsedData = JSON.parse(cachedData);
+        setResults(parsedData.results);
+        setColumns(Object.keys(parsedData.results[0]));
+        setColumns1(parsedData.columns);
+        setValidColumnPairs(parsedData.valid_column_pairs);
+      } else {
+        try {
+          const result = await axios.post(
+            "http://127.0.0.1:8000/sql_chain/gbq_v1/sqlresult",
+            { sql_query }
+          );
+          const fetchedData = result.data;
+          localStorage.setItem(cacheKey, JSON.stringify(fetchedData));
+          setResults(fetchedData.results);
+          setColumns(Object.keys(fetchedData.results[0]));
+          setColumns1(fetchedData.columns);
+          setValidColumnPairs(fetchedData.valid_column_pairs);
+        } catch (e) {
+          console.log(e);
+        }
       }
     };
-    fetchdata();
-  }, [sql_query]);
+
+    fetchData();
+  }, [sql_query, cacheKey]);
 
 
 

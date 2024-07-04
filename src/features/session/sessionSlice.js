@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  session_id: '1234',
+  session_id: null,
 };
 
 export const sessionSlice = createSlice({
