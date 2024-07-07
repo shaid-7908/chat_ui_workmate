@@ -55,11 +55,12 @@ function ChatPage() {
 
     dispatch(create_session(newId));
     async function fetch_chat_history() {
-      await axios
-        .get(
-          `https://workmate-api-private.onrender.com/sql_chain/chats/${session_id}`
-        )
-        .then((res) => setMessageHistory(res.data));
+      // await axios
+      //   .get(
+      //     `https://workmate-api-private.onrender.com/sql_chain/chats/${session_id}`
+      //   )
+      //   .then((res) => setMessageHistory(res.data));
+      console.log('hello')
     }
     fetch_chat_history();
   }, [session_id]);
