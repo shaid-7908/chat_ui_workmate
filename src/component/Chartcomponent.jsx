@@ -27,6 +27,11 @@ ChartJS.register(
 
 const ChartComponent = ({ results, columns, validColumnPairs }) => {
   const [chartType, setChartType] = useState("Bar");
+  if(validColumnPairs.length == 0){
+    return <div className="mx-2 h-[20vh] text-center border-[1px] w-full rounded-md">
+        <h1 className="text-lg">Not enough data to make a chart</h1>
+    </div>
+  }
 
   // Assuming you want to use the first valid column pair for the chart
   const xField = validColumnPairs[0].x;
