@@ -10,7 +10,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 
 function Aichatreply({ chatdata }) {
-  const { message, sender, sql_query } = chatdata;
+  const { message,  sql_query } = chatdata;
   const [ showsql, setShowsql ] = useState(false);
   const [results, setResults] = useState([]);
   const [columns, setColumns] = useState([]);
@@ -18,7 +18,6 @@ function Aichatreply({ chatdata }) {
   const [columns1, setColumns1] = useState(null);
   const [validColumnPairs, setValidColumnPairs] = useState(null);
   const cacheKey = `sql_query_${sql_query}`;
-  const counter = 0
  
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +32,7 @@ function Aichatreply({ chatdata }) {
       } else {
         try {
           const result = await axios.post(
-            "http://127.0.0.1:8000/sql_chain/gbq_v1/sqlresult",
+            "https://workmate-api-private.onrender.com/sql_chain/gbq_v1/sqlresult",
             { sql_query }
           );
           const fetchedData = result.data;
