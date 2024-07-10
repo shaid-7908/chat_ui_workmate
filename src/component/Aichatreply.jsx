@@ -32,7 +32,7 @@ function Aichatreply({ chatdata }) {
       } else {
         try {
           const result = await axios.post(
-            "https://workmate-api-private.onrender.com/sql_chain/gbq_v1/sqlresult",
+            "https://workmate-api-private.onrender.com/sql_chain/mysql_v1/sqlresult",
             { sql_query }
           );
           const fetchedData = result.data;
@@ -147,7 +147,7 @@ function Aichatreply({ chatdata }) {
               </code>
             </pre>
           </div>
-          <div className="h-[30vh] overflow-y-scroll rounded-md border-[1px] ">
+          <div className="h-[30vh] overflow-y-scroll w-[75vw] overflow-x-scroll rounded-md border-[1px] ">
             <table className="w-full border-[1px] text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
@@ -178,7 +178,7 @@ function Aichatreply({ chatdata }) {
           </div>
         </div>
       ) : (
-        <div className="w-[80%] my-4">
+        <div className="w-[80%]  my-4">
           <ChartComponent
             results={results}
             columns={columns1}
@@ -187,7 +187,7 @@ function Aichatreply({ chatdata }) {
         </div>
       )}
       {/*Actual message */}
-      <div className="text-[14px]">
+      <div className="text-[14px] w-[75vw] overflow-x-scroll">
         {message && (
           <Markdown
             rehypePlugins={[remarkGfm]}
