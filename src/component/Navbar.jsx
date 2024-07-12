@@ -8,7 +8,7 @@ function Navbar() {
     <div className='text-black bg-white z-50 w-full fixed top-0 h-[70px] border-b border-gray-300 flex justify-between items-center px-7'>
       <div className='flex items-center justify-center gap-5'>
         <div className='flex items-center justify-center gap-2'>
-        <span className='font-extrabold text-base'>Xanther.ai</span>
+        <span className='font-extrabold text-base'>BFAAC</span>
         </div>
          <button className='bg-[#F4F4F5] px-5 py-2 text-sm rounded-md'><span className="text-sm mr-2">💭</span>Testmode</button>
         <span className='text-gray-500 text-sm'>App is in test mode</span>
@@ -46,7 +46,7 @@ function Navbar() {
             </button>
           </div>
          <div className='flex items-center py-2 justify-center gap-2'>
-         <span className='text-sm mt-1 text-gray-800'>Xanther</span>
+         <span className='text-sm mt-1 text-gray-800'>Test mode</span>
          <img src="https://app.brewit.ai/_next/image?url=https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FACg8ocIleYSvFZBRxieY8JTWXf4f35Abv4TmocSJLrWrw4s4WgUqE53C%3Ds96-c&w=32&q=75" className='w-6 h-6 rounded-md' alt="User Avatar" />
          </div>
       </div>
