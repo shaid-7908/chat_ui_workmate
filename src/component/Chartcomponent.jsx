@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -25,29 +25,38 @@ ChartJS.register(
   PointElement
 );
 
-const ChartComponent = ({ results, columns, validColumnPairs }) => {
+const ChartComponent = ({ rows, columns, column_types }) => {
   const [chartType, setChartType] = useState("Bar");
-  if(validColumnPairs.length == 0){
-    return <div className="mx-2 h-[20vh] text-center border-[1px] w-full rounded-md">
-        <h1 className="text-lg">Not enough data to make a chart</h1>
-    </div>
-  }
 
-  // Assuming you want to use the first valid column pair for the chart
-  const xField = validColumnPairs[0].x;
-  const yField = validColumnPairs[0].y;
+  // Filter columns to include only numerical columns
+  const numericalColumns = columns.filter(
+    (col) => column_types[col] === "numerical"
+  );
 
+  // Convert row data into a format suitable for chart.js
   const chartData = {
-    labels: results.map((item) => item[xField]),
-    datasets: [
-      {
-        label: yField,
-        data: results.map((item) => item[yField]),
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
-      },
-    ],
+    labels: numericalColumns,
+    datasets: rows.map((row, index) => ({
+      label: `Row ${index + 1}`,
+      data: numericalColumns.map((col) => row[col]),
+      backgroundColor: [
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(75, 192, 192, 1)",
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
+      borderWidth: 1,
+    })),
   };
 
   const options = {
@@ -58,7 +67,7 @@ const ChartComponent = ({ results, columns, validColumnPairs }) => {
       },
       title: {
         display: true,
-        text: `${xField} vs ${yField}`,
+        text: "Ethnicity Distribution",
       },
     },
   };

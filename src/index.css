@@ -10,11 +10,14 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0px; /* Set the width of the scrollbar */
+  width: 0px;
+  height: 2px;
+  border-radius: 8px; /* Set the width of the scrollbar */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #f5a800; /* Set the color of the thumb */
+  background-color: #f5a800;
+   /* Set the color of the thumb */
   /* Set the border radius of the thumb */
 }
 
