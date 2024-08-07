@@ -89,7 +89,7 @@ function Aichatreply({ chatdata }) {
   };
 
   return (
-    <div
+    <div 
       className="w-full border-[1px] p-2 rounded-md mb-4 bg-white"
       style={{ boxShadow: "0 5px 5px rgba(0, 0, 0, 0.05)" }}
     >

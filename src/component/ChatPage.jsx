@@ -129,6 +129,7 @@ function ChatPage() {
   const [combinedAttemptMessage, setCombinedAttemptMessage] = useState("");
   const [sqlresult, setSqlresult] = useState([]);
   const [columns2, setColumns2] = useState([]);
+  const [sqlQuery,setSqlQuery] = useState('')
   const [columnTypes,setColumnTypes] = useState([]);
   const [streamedAiMessages, setStreamedAiMessages] = useState([]);
   const [isStreamingResponse2, setIsStreamingResponse2] = useState(false);
@@ -144,7 +145,11 @@ function ChatPage() {
   const sqlresultRef = useRef(sqlresult)
 
   const columnTypeRef = useRef(columnTypes)
+  const sqlQueryRef = useRef(sqlQuery)
 
+  useEffect(()=>{
+    sqlQueryRef.current = sqlQuery
+  },[sqlQuery])
   useEffect(() => {
     combinedStreamedAiMessagesRef.current = combinedStreamedAiMessages;
   }, [combinedStreamedAiMessages]);
@@ -322,6 +327,7 @@ function ChatPage() {
           const responseData = await response3.json();
           
           setSqlresult(responseData.results);
+          setSqlQuery(responseData.query)
           setColumns2(responseData.columns);
           setColumnTypes(responseData.column_types);
         } else {
@@ -339,7 +345,7 @@ function ChatPage() {
           const Aimessage = {
             message: combinedStreamedAiMessagesRef.current,
             sender: "Ai",
-            sql_query: "",
+            sql_query: sqlQueryRef.current,
             columns: columnRef.current,
             rows: sqlresultRef.current,
             column_types: columnTypeRef.current
@@ -378,7 +384,7 @@ function ChatPage() {
           }
           if (msg.sender === "Ai") {
             return (
-              <div key={index}>
+              <div key={`${index}-${uuidv4()}`}>
                 <Aichatreply chatdata={msg} />
               </div>
             );
