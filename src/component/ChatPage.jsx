@@ -15,6 +15,7 @@ const EXPIRATION_TIME = 2 * 60 * 60 * 1000;
 
 function ChatPage() {
   const [humanquestion, setHumanquestion] = useState("");
+  const [humanquestion2,setHumanquestion2] = useState("")
   const [messageHistory, setMessageHistory] = useState([{}]);
   const [airesponse, setAiresponse] = useState("");
   const [preloading, setPreloading] = useState(false);
@@ -52,6 +53,7 @@ function ChatPage() {
   };
   const handleChange = (e) => {
     setHumanquestion(e.target.value);
+    setHumanquestion2(e.target.value)
   };
   useEffect(() => {
     if (scrollRef.current) {
@@ -166,13 +168,14 @@ function ChatPage() {
   },[sqlresult])
   const fetchStream = async () => {
     let req_id = uuidv4();
-    if (!humanquestion.trim()) {
+    if (!humanquestion2.trim()) {
       alert("Please enter a question.");
       return;
     }
+    setHumanquestion("")
     if (session_id) {
       const humanmessage = {
-        message: humanquestion,
+        message: humanquestion2,
         sender: "Human",
         session_id: session_id,
         sql_query: "",
@@ -357,7 +360,7 @@ function ChatPage() {
           setCombinedAttemptMessage("")
           setColumns2([])
           setSqlresult([])
-          setHumanquestion("")
+          setHumanquestion2("")
         }, 200);
       } catch (error) {
         console.error("An error occurred:", error);
