@@ -15,7 +15,7 @@ function App() {
             exact
             path="/"
             element={
-              token != null || token != '' ? <Chat /> : <Navigate to="/login" replace />
+              token ? <Chat /> : <Navigate to="/login" replace />
             }
           />
           <Route exact path="/login" element={<Login />} />
